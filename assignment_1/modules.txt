@@ -1,0 +1,30 @@
+Modules that will help in acheiving full fucntionality : 
+
+Task 1: Modify pgmEcho.c
+- Comment code better
+
+Task 2 : Create a pgmRead.c file 
+- To minimize cluttering and increase modularity. Made for reading files.
+- Opening and closing files.
+
+Task 3: pgmMemory.c
+-Module would help in allocatiohn and freeing up memory.
+
+Task 4: Write pgmCom.c
+Modules that could be used in conjunction would be pgmRead.c and pgmMemory.c
+- pgmRead.c will take in two files as input
+- The actual compare code will be written in pgmCom.c
+
+Task 5: Modify pgmRead.c and write pgmConvert.c
+- pgmRead.c will be able to accept PGM and ASCII
+- Conversion from ASCII to Binary and other way round will be written in pgmConvert.c
+
+Task 6: Write pgmReduce.c 
+- This module will use pgmRead.c and pgmReduce will scale it down by a certain factor.
+
+Task 7: Write pgmTile.c
+- Functionals will include reducing an input file into smaller sub images
+- Will use pgmRead.c will be used to read the image
+
+Task 8: Write pgmAssemble
+- Will be used in conjuction with pgmTitle to form big images from smaller ones.
