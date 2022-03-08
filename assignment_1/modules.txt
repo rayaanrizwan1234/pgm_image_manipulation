@@ -5,15 +5,18 @@ Task 1: Modify pgmEcho.c
 
 Task 2 : Create a pgmRead.c file 
 - To minimize cluttering and increase modularity. Made for reading files.
-- Opening and closing files.
+- Opening and closing files.	
+- Reading ascii and binary 
+
+Task 3: pgmWrite.c
 
 Task 3: pgmMemory.c
 -Module would help in allocatiohn and freeing up memory.
 
-Task 4: Write pgmCom.c
+Task 4: Write pgmComp.c
 Modules that could be used in conjunction would be pgmRead.c and pgmMemory.c
 - pgmRead.c will take in two files as input
-- The actual compare code will be written in pgmCom.c
+- The actual compare code will be written in pgmComp.c
 
 Task 5: Modify pgmRead.c and write pgmConvert.c
 - pgmRead.c will be able to accept PGM and ASCII
