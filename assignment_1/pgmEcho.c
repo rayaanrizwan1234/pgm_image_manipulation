@@ -36,16 +36,16 @@
 /***********************************/
 
 
-int write (char *input, File *image) {
+int write (char *input, File *file1) {
 	FILE *outputFile = fopen(input, "w");
 
-	  nImageBytes =image->width * image->height * sizeof(unsigned char);
+	  nImageBytes =file1->width * file1->height * sizeof(unsigned char);
 	 /* check whether file opening worked     */
 	 if (outputFile == NULL)
 			 { /* NULL output file */
 			 /* free memory                   */
-			 free(image->commentLine);
-			 free(image->imageData);
+			 free(file1->commentLine);
+			 free(file1->imageData);
 
 			 /* print an error message        */
 			 printf("Error: Failed to write pgm image to file %s\n", input);
@@ -55,14 +55,14 @@ int write (char *input, File *image) {
 			 } /* NULL output file */
 
 	 /* write magic number, size & gray value */
-	 size_t nBytesWritten = fprintf(outputFile, "P2\n%d %d\n%d\n", image->width, image->height, image->maxGray);
+	 size_t nBytesWritten = fprintf(outputFile, "P2\n%d %d\n%d\n", file1->width, file1->height, file1->maxGray);
 
 	 /* check that dimensions wrote correctly */
 	 if (nBytesWritten < 0)
 			 { /* dimensional write failed    */
 			 /* free memory                   */
-			 free(image->commentLine);
-			 free(image->imageData);
+			 free(file1->commentLine);
+			 free(file1->imageData);
 
 			 /* print an error message        */
 			 printf("Error: Failed to write pgm image to file %s\n", input);
@@ -72,10 +72,10 @@ int write (char *input, File *image) {
 			 } /* dimensional write failed    */
 
 			 /* pointer for efficient write code      */
-			 for (unsigned char *nextGrayValue = image->imageData; nextGrayValue < image->imageData + nImageBytes; nextGrayValue++)
+			 for (unsigned char *nextGrayValue = file1->imageData; nextGrayValue < file1->imageData + nImageBytes; nextGrayValue++)
 							 { /* per gray value */
 			 /* get next char's column        */
-			 int nextCol = (nextGrayValue - image->imageData + 1) % image->width;
+			 int nextCol = (nextGrayValue - file1->imageData + 1) % file1->width;
 
 			 /* write the entry & whitespace  */
 			 nBytesWritten = fprintf(outputFile, "%d%c", *nextGrayValue, (nextCol ? ' ' : '\n') );
@@ -84,8 +84,8 @@ int write (char *input, File *image) {
 			 if (nBytesWritten < 0)
 					 { /* data write failed   */
 					 /* free memory           */
-					 free(image->commentLine);
-					 free(image->imageData);
+					 free(file1->commentLine);
+					 free(file1->imageData);
 
 					 /* print error message   */
 					 printf("Error: Failed to write pgm image to file %s\n", input);
