@@ -12,7 +12,7 @@ int write (char *input, File *file1) {
 	 checkFile(outputFile, file1);
 	 /* write magic number, size & gray value */
 	//  size_t nBytesWritten  = fprintf(outputFile, "P2\n%d %d\n%d\n", file1->width, file1->height, file1->maxGray);
-	 size_t nBytesWritten = fwrite((unsigned char *)(file1->imageData), sizeof nImageBytes, outputFile);
+	size_t nBytesWritten = fprintf(outputFile, "P2\n%d %d\n%d\n", file1->width, file1->height, file1->maxGray);
 	 /* check that dimensions wrote correctly */
 		checknBytesWritten(nBytesWritten, file1);
 

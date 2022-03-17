@@ -8,17 +8,6 @@
 #include "pgmWrite.h"
 #include "pgmComp.h"
 
-/***********************************/
-/* main routine                    */
-/*                                 */
-/* CLI parameters:                 */
-/* argv[0]: executable name        */
-/* argv[1]: input file name        */
-/* argv[2]: output file name       */
-/* returns 0 on success            */
-/* non-zero error code on fail     */
-/***********************************/
-
 int main(int argc, char **argv)
 	{ /* main() */
 	/* check for correct number of arguments */
@@ -29,8 +18,7 @@ int main(int argc, char **argv)
 		/* and return an error code      */
 		return EXIT_WRONG_ARG_COUNT;
 		} /* wrong arg count */
-		printf("%s\n",argv[1]);
 		File *file1 = malloc(sizeof(File));
-		readFile(argv[1], file1);
-		write(argv[2], file1);
+    File *file2 = malloc(sizeof(File));
+		Compare(argv[1], argv[2], file1, file2);
 } /* main() */
