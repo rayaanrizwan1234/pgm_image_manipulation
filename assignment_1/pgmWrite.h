@@ -1,2 +1,2 @@
 #include "pgmEchoStructs.h"
-int write(char *output, File *file1);
+int write(char *convert, File *file1, char *input);

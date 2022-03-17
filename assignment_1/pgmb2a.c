@@ -4,14 +4,9 @@
 #include "pgmDef.h"
 #include "pgmRead.h"
 #include "pgmValidation.h"
+#include "pgmb2a.h"
+#include "pgmWrite.h"
 
-int pgma2b(char *input1,File *image, char *outputFile){
-  readFile(input1, image);
-  fp = fopen(outputFile, "w");
-  fprintf(image->imageData, 4, outputFile);
-  fclose(fp);
-  return 0;
-}
 
 int main(int argc, char **argv)
 	{ /* main() */
@@ -19,10 +14,18 @@ int main(int argc, char **argv)
 	if (argc != 3)
 		{ /* wrong arg count */
 		/* print an error message        */
-		printf("Usage: %s input_file output_file\n", argv[0]);
+    printf("Usage: ./pgmb2a inputImage.pgm outputImage.pgm");
 		/* and return an error code      */
 		return EXIT_WRONG_ARG_COUNT;
-		} /* wrong arg count */
-		File *image = malloc(sizeof(File));
-		pgma2b(argv[1],image, argv[2]);
-} /* main() */
+  }
+    File *image = malloc(sizeof(File));
+    pgmb2a(argv[0],argv[1],argv[2],image);
+
+  return 0;
+}
+
+int pgmb2a(char *convert, char *input1, char *outputFile, File *image){
+  readFile(input1, image);
+  write(convert, image, outputFile);
+  return 0;
+}

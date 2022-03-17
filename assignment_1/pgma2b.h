@@ -1,1 +1,2 @@
-int readFile (char *input, File *image);
+#include "pgmEchoStructs.h"
+int pgma2b(char *input1,File *image, char *outputFile);

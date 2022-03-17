@@ -19,8 +19,8 @@ echo "Test 4: Testing converted -> CONVERTED"
 ./pgma2b out.pgm outConvertedA2B.pgm
 
 #pgmConverted - Binary to Ascii; Test 5:
-#echo "Test 5 : Testing converted -> CONVERTED"
-#./pgmb2a out.pgm  outConvertedB2A.pgm
+echo "Test 5 : Testing converted -> CONVERTED"
+./pgmb2a out.pgm  outConvertedB2A.pgm
 
 
 

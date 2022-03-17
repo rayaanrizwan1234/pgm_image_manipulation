@@ -25,12 +25,14 @@ int main(int argc, char **argv)
 	if (argc != 3)
 		{ /* wrong arg count */
 		/* print an error message        */
-		printf("Usage: %s input_file output_file\n", argv[0]);
+		printf("Usage: ./pgmEcho inputImage.pgm outputImage.pgm");
 		/* and return an error code      */
 		return EXIT_WRONG_ARG_COUNT;
-		} /* wrong arg count */
+	} else{
 		printf("%s\n",argv[1]);
 		File *file1 = malloc(sizeof(File));
 		readFile(argv[1], file1);
-		write(argv[2], file1);
-} /* main() */
+		write(argv[0], file1, argv[2]);
+	}
+
+}

@@ -14,11 +14,13 @@ int main(int argc, char **argv)
 	if (argc != 3)
 		{ /* wrong arg count */
 		/* print an error message        */
-		printf("Usage: %s input_file output_file\n", argv[0]);
+		printf("Usage: ./pgmComp inputImage.pgm inputImage.pgm");
 		/* and return an error code      */
 		return EXIT_WRONG_ARG_COUNT;
-		} /* wrong arg count */
+	} else{
 		File *file1 = malloc(sizeof(File));
     File *file2 = malloc(sizeof(File));
 		Compare(argv[1], argv[2], file1, file2);
-} /* main() */
+	}
+
+} 
