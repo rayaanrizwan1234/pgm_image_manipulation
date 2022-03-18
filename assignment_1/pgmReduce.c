@@ -21,6 +21,7 @@ int main(int argc, char **argv)
     File *image = malloc(sizeof(File));
 		int factor = atoi(argv[2]);
     pgmReduce(argv[0], argv[1], factor, argv[3], image);
+		printf("REDUCED\n");
   return 0;
 }
 

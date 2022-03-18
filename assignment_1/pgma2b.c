@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 		// Pointer to struct
 		File *image = malloc(sizeof(File));
 		pgma2b(argv[1], image, argv[2]);
-		printf("CONVERTED");
+		printf("CONVERTED\n");
 } /* main() */
 
 int pgma2b(char *input1,File *image, char *outputFile){

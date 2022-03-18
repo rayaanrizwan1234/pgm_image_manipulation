@@ -21,7 +21,7 @@
    //Pointer to Struct
      File *image = malloc(sizeof(File));
      pgmb2a(argv[0],argv[1],argv[2],image);
-     printf("CONVERTED");
+     printf("CONVERTED\n");
    return EXIT_NO_ERRORS;
  }
 
