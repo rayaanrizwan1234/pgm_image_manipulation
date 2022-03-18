@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 	if (argc != 3)
 		{ /* wrong arg count */
 		/* print an error message        */
-		printf("Usage: ./pgmComp inputImage.pgm inputImage.pgm");
+		printf("Usage: ./pgmCompare inputImage.pgm inputImage.pgm");
 		/* and return an error code      */
 		return EXIT_WRONG_ARG_COUNT;
 	}
