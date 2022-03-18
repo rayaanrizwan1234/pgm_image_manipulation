@@ -33,3 +33,4 @@ echo "Test 8: Testing Convert and Compare"
 echo "Test 8 Compare between ASCII and BINARY"
 ./pgmCompare a2b.pgm slice0a.pgm
 
+
