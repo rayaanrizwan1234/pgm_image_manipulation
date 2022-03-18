@@ -23,7 +23,7 @@ int write(char *convert, File *image, char *input) {
 	            // checkDimensions(image, nBytesWritten, inputFile);
 	            }
 	              return EXIT_NO_ERRORS;
-	    } else if(strcmp(convert, "./pgmb2a") == 0|| strcmp(convert, "./pgmEcho") == 0){
+	    } else if(strcmp(convert, "./pgmb2a") == 0 || strcmp(convert, "./pgmEcho") == 0 || strcmp(convert, "./pgmReduce") == 0){
 	        // write magic number, size & gray value
 	        size_t nBytesWritten = fprintf(outputFile, "P2\n%d %d\n%d\n", image->width, image->height, image->maxGray);
 					printf("%zu\n", nBytesWritten);
