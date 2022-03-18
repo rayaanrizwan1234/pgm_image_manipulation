@@ -15,7 +15,7 @@ int checkFile(FILE *outputFile, File *file1){
       printf("Error: Failed to write pgm image to file \n");
 
       /* return an error code          */
-      return EXIT_BAD_OUTPUT_FILE;
+      return EXIT_BAD_INPUT_FILE ;
       } /* NULL output file */
       return 0;
 }
@@ -28,10 +28,10 @@ int checknBytesWritten(size_t nBytesWritten, File *file1){
       free(file1->imageData);
 
       /* print an error message        */
-      printf("Error: Failed to write pgm image to file \n");
+      printf("Error: Failed to read bytes");
 
       /* return an error code          */
-      return EXIT_BAD_OUTPUT_FILE;
+      return NBYTESWRITTENFAIL;
       } /* dimensional write failed    */
       return 0;
 }

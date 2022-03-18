@@ -8,34 +8,6 @@
 #include "pgma2b.h"
 
 
-int pgma2b(char *input1,File *image, char *outputFile){
-    readFile(input1, image);
-    FILE *output = fopen(outputFile, "w");
-    unsigned char *nextGrayValue = NULL;
-
-    long nImageBytes = image->width * image->height * sizeof(unsigned char);
-    // check whether file opening worked
-    // checkInput(image, output, input1);
-
-    // write magic number, size & gray value
-    size_t nBytesWritten = fprintf(output, "P5\n%d %d\n%d\n", image->width, image->height, image->maxGray);
-    printf("%zu\n",nBytesWritten);
-    // checkDimensions(image, nBytesWritten, input1);
-
-    // pointer for efficient write code
-    for (nextGrayValue = image->imageData; nextGrayValue < image->imageData + nImageBytes; nextGrayValue++)
-    {
-      // int nextCol = (nextGrayValue - image->imageData + 1) % image->width;
-      // nBytesWritten = fprintf(outputFile, "%d%c", nextGrayValue, (nextCol ? ' ' : '\n'));
-      fwrite(nextGrayValue, 1, 1, output);
-      // checkDimensions(image, nBytesWritten, input1);
-      }
-  //  fwrite(image->imageData, sizeof(unsigned char), image->width * image->height, output);
-   fclose(output);
-
-    return 0;
-}
-
 int main(int argc, char **argv)
 
 	{ /* main() */
@@ -47,6 +19,15 @@ int main(int argc, char **argv)
 		/* and return an error code      */
 		return EXIT_WRONG_ARG_COUNT;
 		} /* wrong arg count */
+		// Pointer to struct
 		File *image = malloc(sizeof(File));
 		pgma2b(argv[1], image, argv[2]);
+		printf("CONVERTED");
 } /* main() */
+
+int pgma2b(char *input1,File *image, char *outputFile){
+		// Reads in the inputFile
+    readFile(input1, image);
+		write("./pgma2b", image, outputFile);
+    return 0;
+}

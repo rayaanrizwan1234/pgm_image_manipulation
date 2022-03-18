@@ -7,7 +7,15 @@
 // Check if inputfile exists
 int checkInput(FILE *inputfile){
   if(inputfile == NULL){
-    return EXIT_BAD_INPUT_FILE;
+    printf("ERROR: Bad File Name");
+    return BAD_FILE_NAME;
+  }
+  return 0;
+}
+
+int checkMagicNumber(File *image){
+  if( image->magic_number[1] != 50 && image->magic_number[1] != 53){
+    printf("Bad magic number\n");
   }
   return 0;
 }
@@ -20,8 +28,8 @@ int checkComment(char nextChar, File *image, FILE *inputFile){
           if(commentString == NULL){
               free(image->commentLine);
               fclose(inputFile);
-              printf("Error: Reading pgm file -->  Check for Comment line");
-              return EXIT_BAD_INPUT_FILE;
+              printf("ERROR: Bad Comment Line");
+              return BAD_COMMENT_LINE;
               }
       }
   else
@@ -43,8 +51,8 @@ int checkDimensions(int width, int height, int maxGray, File *image, FILE *input
     {
       free(image->commentLine);
       fclose(inputFile);
-      printf("Error: Reading pgm file");
-      return EXIT_BAD_INPUT_FILE;
+      printf("ERROR: Bad Dimensions");
+      return BAD_DIMENSIONS;
   }
   return 0;
 }
@@ -53,8 +61,8 @@ int checkImageData(unsigned char *imageData, File *image, FILE *inputFile){
   if (image->imageData == NULL){
       free(image->commentLine);
       fclose(inputFile);
-      printf("Error: failed");
-      return EXIT_BAD_INPUT_FILE;
+      printf("ERROR: Bad Data");
+      return BAD_DATA;
     }
     return 0;
 }
@@ -67,6 +75,14 @@ int checkGrayValue(int scanCount, int grayValue, File *image, FILE *inputFile){
       fclose(inputFile);
       printf("Error: Failes 3");
       return EXIT_BAD_INPUT_FILE;
+  }
+  return 0;
+}
+
+int checkImageMemory(File *image){
+  if (image->imageData == NULL){
+    printf("ERROR: Image Malloc Failed \n");
+    return IMAGE_MEMORY_FAIL;
   }
   return 0;
 }

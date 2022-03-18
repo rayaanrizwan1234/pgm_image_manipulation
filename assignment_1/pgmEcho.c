@@ -28,11 +28,12 @@ int main(int argc, char **argv)
 		printf("Usage: ./pgmEcho inputImage.pgm outputImage.pgm");
 		/* and return an error code      */
 		return EXIT_WRONG_ARG_COUNT;
-	} else{
-		printf("%s\n",argv[1]);
+	}
+		//Create Pointer to Struct File
 		File *file1 = malloc(sizeof(File));
+		// Call readFile and write
 		readFile(argv[1], file1);
 		write(argv[0], file1, argv[2]);
-	}
-
+		printf("ECHOED!\n");
+		return EXIT_NO_ERRORS;
 }

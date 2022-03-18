@@ -4,14 +4,28 @@
 #include "pgmRead.h"
 #include "pgmEchoStructs.h"
 #include "pgmWrite.h"
-#include "string.h"
+#include <string.h>
+#include "pgmb2a.h"
+#include "pgmComp.h"
+#include "pgma2b.h"
 
 int Compare(char *input1, char *input2, File *image1, File *image2){
-  printf("1\n");
+  // Reads 1st file
   readFile(input1, image1);
-    printf("2\n");
+    // Reads 2nd file
   readFile(input2, image2);
-    printf("3\n");
+  // Checks if they are of different types e.g ASCII and binary
+    if(image1->magic_number[1] != image2->magic_number[1]){
+      // If binary then conver to ASCII
+      if (image1->magic_number[1] == 53){
+        // pgmb2a("./pgmb2a", input1, input1, image1);
+        write("./pgmb2a", image1, input1);
+      } else {
+        // pgmb2a("./pgmb2a", input2, input2, image2);
+          write("./pgmb2a", image2, input2);
+      }
+    }
+    // Conditions to check if File attributes are equal
   if (
       image1->width == image2->width &&
       image1->height == image2->height &&
