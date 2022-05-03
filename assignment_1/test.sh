@@ -14,10 +14,10 @@ echo "Test 3: Testing compare -> DIFFERENT"
 
 #pgmConverted - Ascii to Binary; Test 4:
 echo "Test 4: Testing converted -> CONVERTED"
-./pgma2b out.pgm outConvertedA2B.pgm
+./pgma2b slice0a.pgm outConvertedA2B.pgm
 
 echo "Test 5 : Testing converted -> CONVERTED"
-./pgmb2a out.pgm  outConvertedB2A.pgm
+./pgmb2a outCOnvertedA2B.pgm  outConvertedB2A.pgm
 
 #pgmReduce Test: Reduces the file of a file
 echo "Test 6: Testing pgmReduce -> REDUCED by a factor of 2"

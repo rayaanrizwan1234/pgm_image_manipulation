@@ -22,18 +22,27 @@
 int main(int argc, char **argv)
 	{ /* main() */
 	/* check for correct number of arguments */
-	if (argc != 3)
+	if (argc == 1)
 		{ /* wrong arg count */
 		/* print an error message        */
-		printf("Usage: ./pgmEcho inputImage.pgm outputImage.pgm");
+		printf("Usage: %s inputImage.pgm outputImage.pgm", argv[0]);
 		/* and return an error code      */
+		return 0;
+	} else if (argc != 3){
+		printf("ERROR: Bad Argument Count");
 		return EXIT_WRONG_ARG_COUNT;
 	}
 		//Create Pointer to Struct File
 		File *file1 = malloc(sizeof(File));
 		// Call readFile and write
-		readFile(argv[1], file1);
-		write(argv[0], file1, argv[2]);
+		int ReturnRead = readFile(argv[1], file1);
+		if (ReturnRead != 0){
+			return ReturnRead;
+		}
+		int ReturnWrite = write(argv[0], file1, argv[2]);
+		if(ReturnWrite != 0){
+			return ReturnWrite;
+		}
 		printf("ECHOED!\n");
 		return EXIT_NO_ERRORS;
 }

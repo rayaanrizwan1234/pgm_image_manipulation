@@ -9,36 +9,26 @@
 #include "pgmComp.h"
 #include "pgma2b.h"
 
-int Compare(char *input1, char *input2, File *image1, File *image2){
-  // Reads 1st file
-  readFile(input1, image1);
-    // Reads 2nd file
-  readFile(input2, image2);
-  // Checks if they are of different types e.g ASCII and binary
-    if(image1->magic_number[1] != image2->magic_number[1]){
-      // If binary then conver to ASCII
-      if (image1->magic_number[1] == 53){
-        // pgmb2a("./pgmb2a", input1, input1, image1);
-        write("./pgmb2a", image1, input1);
-      } else {
-        // pgmb2a("./pgmb2a", input2, input2, image2);
-          write("./pgmb2a", image2, input2);
-      }
-    }
-    // Conditions to check if File attributes are equal
-  if (
-      image1->width == image2->width &&
-      image1->height == image2->height &&
-      image1->maxGray == image2->maxGray &&
-      image1->commentLine == image2->commentLine
-    )
-    {
-      if(memcmp(image1->imageData, image2->imageData, image1->height*image1->width) == 0){
-        printf("IDENTICAL\n");
-        return EXIT_NO_ERRORS;
-      }
-    }
-      printf("DIFFERENT\n");
-      return 1;
+int main(int argc, char **argv)
+	{ /* main() */
+	/* check for correct number of arguments */
+	if (argc == 1)
+		{ /* If no parameters were given */
+		/* print an error message        */
+    printf("Usage: ./pgma2b inputImage.pgm outputImage.pgm");
+		/* and return an error code      */
+		return 0;
+	} else if (argc != 3){
+		printf("ERROR: Bad Argument Count");
+		return EXIT_WRONG_ARG_COUNT;
+	}/* wrong arg count */
+		// Creates to two pointers for two images
+		File *file1 = malloc(sizeof(File));
+    File *file2 = malloc(sizeof(File));
+		int ReturnCompare = Compare(argv[1], argv[2], file1, file2);
+		if (ReturnCompare == 0){
+			return EXIT_NO_ERRORS;
+		} else {
+			return ReturnCompare;
+		}
 }
-//image1->imageData == image2->imageData
