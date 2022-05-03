@@ -12,13 +12,15 @@ int main(int argc, char **argv)
 
 	{ /* main() */
 	/* check for correct number of arguments */
-	if (argc != 3)
+	if (argc == 1)
 		{ /* wrong arg count */
 		/* print an error message        */
     printf("Usage: ./pgma2b inputImage.pgm outputImage.pgm");
 		/* and return an error code      */
+		return 0;
+	}  else if (argc != 3){
 		return EXIT_WRONG_ARG_COUNT;
-		} /* wrong arg count */
+	}/* wrong arg count */
 		// Pointer to struct
 		File *image = malloc(sizeof(File));
 		pgma2b(argv[1], image, argv[2]);
