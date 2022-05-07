@@ -23,18 +23,18 @@ int main(int argc, char **argv)
 	}
     File *image = malloc(sizeof(File));
 		int factor = atoi(argv[2]);
-		// char *charFactor = argv[2];
-		// if(factor < 0){
-		// 	printf("ERROR: reduction factor is negative");
-		// 	return 1;
-		// }
-		// if(isdigit(charFactor) == 0){
-		// 	printf("ERROR: not numeric");
-		// 	return 1;
+
+		if(factor < 0){
+			printf("ERROR: Miscellaneous (Reduction factor is negative)");
+			return 100;
+		 }
+		// if(isdigit(factor) == 0){
+		// 	printf("ERROR: Miscellaneous (non-numeric scaling factor)");
+		// 	return 100;
 		// }
     int returnReduce = pgmReduce(argv[0], argv[1], factor, argv[3], image);
 		if(returnReduce == 0){
-			printf("REDUCED\n");
+			printf("REDUCED");
 			return EXIT_NO_ERRORS;
 		}
   return returnReduce;
@@ -93,19 +93,23 @@ for(int row = 0; row < image->height; row ++){
 		int grayValue = -1;
 		int scanCount = fscanf(inputFile, "%u", &grayValue);
 		// Checks the scan count and the gray value
-		checkGrayValue(scanCount, grayValue,image,inputFile);
+		if(checkLittleData(scanCount, grayValue, image, inputFile, input) != 0){
+      return BAD_DATA;
+    }
 		imageData[row][col] = (unsigned char) grayValue;
 	}
 }
+if (checkTooMuchData(image, inputFile, input) != 0){
+	return BAD_DATA;
+}
 
 free(image->imageData);
-image->width = width;
-image->height = height;
 image->imageData = (unsigned char *) malloc(nImageBytes);
 
 if(checkImageMemory(image) != 0){
 return IMAGE_MEMORY_FAIL;
 }
+
 nImageBytes = height * width * sizeof(unsigned char);
 unsigned char *nextGrayValue = image->imageData;
 for(int row = 0; row < image->height; row++){
@@ -116,6 +120,8 @@ for(int col = 0; col < image->width; col++){
 	}
 }
 }
+image->width = width;
+image->height = height;
 int returnWrite = write(convert, image, output);
 if(returnWrite != 0){
 return returnWrite;

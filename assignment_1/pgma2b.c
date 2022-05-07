@@ -6,6 +6,7 @@
 #include "pgmWrite.h"
 #include "string.h"
 #include "pgma2b.h"
+#include "pgmValidation.h"
 
 
 int main(int argc, char **argv)

@@ -69,24 +69,27 @@ int checkDimensions(File *image, FILE *inputFile, int scanCount, char *input){
   return 0;
 }
 
-// int checkImageData(unsigned char *imageData, File *image, FILE *inputFile, char *input){
-//   if (image->imageData == NULL){
-//       free(image->commentLine);
-//       fclose(inputFile);
-//       printf("ERROR: Bad Data (%s)", input);
-//       return BAD_DATA;
-//     }
-//     return 0;
-// }
-
-int checkGrayValue(int scanCount, int grayValue, File *image, FILE *inputFile, char *input){
+int checkLittleData(int scanCount, int grayValue, File *image, FILE *inputFile, char *input){
   if((scanCount != 1) || (grayValue < 0) || (grayValue > 255))
   {
       free(image->commentLine);
       free(image->imageData);
       fclose(inputFile);
-      printf("ERROR: Bad Max Gray Value (%s)", input);
-      return BAD_MAX_GRAY_VALUE;
+      printf("ERROR: Bad Data (%s)", input);
+      return BAD_DATA;
+  }
+  return 0;
+}
+
+int checkTooMuchData(File *image, FILE *inputFile, char *input){
+    int grayValue = -1;
+    int scanCount = fscanf(inputFile, "%u", &grayValue);
+  if(grayValue != -1){
+    free(image->commentLine);
+    free(image->imageData);
+    fclose(inputFile);
+    printf("ERROR: Bad Data (%s)", input);
+    return BAD_DATA;
   }
   return 0;
 }
