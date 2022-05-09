@@ -16,9 +16,7 @@ int write(char *convert, File *image, char *input) {
   unsigned char *nextGrayValue = NULL;
 	long nImageBytes = image->width * image->height * sizeof(unsigned char);
 	// check whether file opening worked
-	if(checkFile(outputFile, image, input) != 0){
-		return OUTPUT_FAILED;
-	}
+	checkFile(outputFile, image, input);
 	if(strcmp(convert, "./pgma2b") == 0){
 			 writeBinary(outputFile, image, nextGrayValue, nImageBytes);
 			 fclose(outputFile);
@@ -40,36 +38,4 @@ int write(char *convert, File *image, char *input) {
 		}
 }
 return OUTPUT_FAILED;
-
-// FILE *out = fopen(input, "w");
-// 	  unsigned char *nextGrayValue = NULL;
-// 	    long nImageBytes =image->width * image->height * sizeof(unsigned char);
-//       //file opening tested
-//
-// 	    if(strcmp(convert, "./pgm2b") == 0){
-// 	        size_t nBytesWritten = fprintf(out, "P5\n%d %d\n%d\n", image->width, image->height, image->maxGray);
-// 	        // nBytesWrittenChecker(nBytesWritten, image);
-//
-// 	        // pointer for efficient write code
-// 	        for (nextGrayValue = image->imageData; nextGrayValue < image->imageData + nImageBytes; nextGrayValue++)
-// 	        {
-// 	            fwrite(nextGrayValue, 1, 1, out);
-//               //dimensionsCheck()
-// 	            }
-// 	              return EXIT_NO_ERRORS;
-// 	    } else if(strcmp(convert, "./pgmb2a") == 0|| strcmp(convert, "./pgmEcho") == 0 || strcmp(convert, "./pgmReduce") == 0){
-// 	        // must be writing magic number, size & gray value
-// 	        size_t nBytesWritten = fprintf(out, "P2\n%d %d\n%d\n", image->width, image->height, image->maxGray);
-//           // nBytesWrittenChecker(nBytesWritten, image);
-//
-// 	        // pointer for efficient write code
-// 	        for (nextGrayValue = image->imageData; nextGrayValue < image->imageData + nImageBytes; nextGrayValue++)
-// 	        {
-// 	            int nextCol = (nextGrayValue - image->imageData + 1) % image->width;
-// 	            fprintf(out, "%d%c", *nextGrayValue, (nextCol ? ' ' : '\n') );
-//               //dimensionsCheck()
-// 	            }
-// 	            return EXIT_NO_ERRORS;
-// 	        }
-// 	        return EXIT_BAD_INPUT_FILE;
 }

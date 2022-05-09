@@ -15,7 +15,7 @@ int checkFile(FILE *outputFile, File *image, char *input){
       printf("ERROR: Output Failed (%s)", input);
 
       /* return an error code          */
-      return OUTPUT_FAILED;
+      exit(OUTPUT_FAILED);
       } /* NULL output file */
       return 0;
 }

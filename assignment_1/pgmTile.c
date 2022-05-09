@@ -47,10 +47,8 @@ int main(int argc, char **argv)
 }
 
 int pgmTile(char *convert, char *input, int factor, char *output, File *image){
-		// 	if(checkTemplate(output) != 0){
-		// 	return MISCELLANEOUS;
-		// }
-		// Reading image and returning value if not equal to 0
+
+	// Reading image and returning value if not equal to 0
 	int returnRead = readFile(input, image);
 	if(returnRead != 0){
 		return returnRead;

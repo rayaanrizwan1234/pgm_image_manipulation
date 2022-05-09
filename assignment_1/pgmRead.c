@@ -20,44 +20,32 @@ image->imageData = NULL;
 FILE *inputFile = fopen(input, "r");
 // fails to read in file, returns error from pgmDef.h
 // Checks the file being inputted
-if (checkInput(inputFile, input) != 0){
-  return EXIT_BAD_INPUT_FILE;
-}
+checkInput(inputFile, input);
 
 // reads in Magic Number from file. Determines file type
 image->magic_number[0] = getc(inputFile);
 image->magic_number[1] = getc(inputFile);
 
-if(checkMagicNumber(image, input) != 0){
-  return BAD_MAGIC_NUMBER;
-}
+checkMagicNumber(image, input);
 
 // scans for white spaces in the image logic
 int scanCount = fscanf(inputFile, " ");
 // scans for the white spaces if present in the code
 char nextChar = fgetc(inputFile);
 // Checks for comment lines in the file
- if (checkComment( nextChar, image, inputFile, input) != 0){
-   return BAD_COMMENT_LINE;
- }
+checkComment( nextChar, image, inputFile, input);
 // reads in the width, height and max gray values skipping white spaces
 scanCount = fscanf(inputFile, "%u %u %u", &(image->width), &(image->height), &(image->maxGray));
 // Checks the size and the gray values
-if(checkDimensions(image,inputFile, scanCount, input) != 0){
-    return BAD_DIMENSIONS;
-}
-if(checkMaxGray(image,inputFile, input) != 0){
-    return BAD_MAX_GRAY_VALUE;
-}
+checkDimensions(image,inputFile, scanCount, input);
+checkMaxGray(image,inputFile, input);
 
 // allocate the data pointer
 nImageBytes = image->width * image->height * sizeof(unsigned char);
 image->imageData = (unsigned char *) malloc(nImageBytes);
 
-// Checks the memory allocation
-if(checkImageMemory(image) != 0){
-  return IMAGE_MEMORY_FAIL;
-}
+// Checks if malloc allocated memory
+checkImageMemory(image);
 
 if(image->magic_number[1] == 50){
 
@@ -65,9 +53,7 @@ if(image->magic_number[1] == 50){
     int grayValue = -1;
     int scanCount = fscanf(inputFile, "%u", &grayValue);
     // Checks the scan count and the gray value
-    if(checkLittleData(scanCount, grayValue, image, inputFile, input) != 0){
-     return BAD_DATA;
-    }
+    checkLittleData(scanCount, grayValue, image, inputFile, input);
     *nextGrayValue = (unsigned char) grayValue;
   }
 
@@ -87,13 +73,10 @@ if(image->magic_number[1] == 50){
   //     }
   //     nextGrayValue++;
   //   }
-  //
 
 }
 // pointer for efficient reading of the file
-if (checkTooMuchData(image, inputFile, input) != 0){
-  return BAD_DATA;
-}
+checkTooMuchData(image, inputFile, input);
 // close the file, no longer needed
 fclose(inputFile);
 
