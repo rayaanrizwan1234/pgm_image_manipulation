@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 		File *image = malloc(sizeof(File));
 		int Returnpgma2b = pgma2b(argv[1], image, argv[2]);
 		if (Returnpgma2b == 0){
-			printf("CONVERTED\n");
+			printf("CONVERTED");
 			return EXIT_NO_ERRORS;
 		} else {
 			return Returnpgma2b;

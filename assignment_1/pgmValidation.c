@@ -12,19 +12,20 @@ int checkInput(FILE *inputfile, char *input){
     printf("ERROR: Bad File Name (%s)", input);
     return BAD_FILE_NAME;
   }
-  const char *dot = strchr(input, '.');
-  if(!dot || dot == input) extension = "";
-  extension = dot + 1;
-  if (strcmp(extension, ext) != 0 ){
-    printf("ERROR: Bad File Name (%s)", input);
-    return BAD_FILE_NAME;
-  }
+  // const char *dot = strchr(input, '.');
+  // if(!dot || dot == input) extension = "";
+  // extension = dot + 1;
+  // if (strcmp(extension, ext) != 0 ){
+  //   printf("ERROR: Bad File Name (%s)", input);
+  //   return BAD_FILE_NAME;
+  // }
   return 0;
 }
 
 int checkMagicNumber(File *image, char *input){
-  if( image->magic_number[1] != 50 && image->magic_number[1] != 53){
+  if( image->magic_number[0] != 'P' || (image->magic_number[1] != '2' && image->magic_number[1] != '5')){
     printf("ERROR: Bad Magic Number (%s)", input);
+    exit(3);
     return BAD_MAGIC_NUMBER;
   }
   return 0;
@@ -41,6 +42,10 @@ int checkComment(char nextChar, File *image, FILE *inputFile, char *input){
               printf("ERROR: Bad Comment Line (%s)", input);
               return BAD_COMMENT_LINE;
               }
+          if(strlen(commentString) >= 128){
+            printf("ERROR: Bad Comment Line (%s)", input);
+            return BAD_COMMENT_LINE;
+          }
       }
   else {
           ungetc(nextChar, inputFile);
@@ -49,24 +54,42 @@ int checkComment(char nextChar, File *image, FILE *inputFile, char *input){
 }
 
 int checkDimensions(File *image, FILE *inputFile, int scanCount, char *input){
-  int dimensions = image->width * image->height;
+
+  // if(
+  //   (scanCount != 3)||
+  //   (image->width * image->height < 1) ||
+  //   (image->width * image->height >= 65536))
+  //   {
+  //     free(image->commentLine);
+  //     fclose(inputFile);
+  //     printf("ERROR: Bad Dimensions (%s)", input);
+  //     return BAD_DIMENSIONS;
+  // }
+  // return 0;
   if(
     (scanCount != 3)||
-    dimensions < 1 ||
-    dimensions >= 65536)
+    (image->width  < MIN_IMAGE_DIMENSION    )||
+    (image->width  >= MAX_IMAGE_DIMENSION    )||
+    (image->height < MIN_IMAGE_DIMENSION )||
+    (image->height >= MAX_IMAGE_DIMENSION )
+    )
     {
       free(image->commentLine);
       fclose(inputFile);
       printf("ERROR: Bad Dimensions (%s)", input);
-      return BAD_DIMENSIONS;
+      return EXIT_BAD_INPUT_FILE;
   }
+  return 0;
+}
+
+int checkMaxGray(File *image, FILE *inputFile, char *input){
   if (image->maxGray != 255 ){
     free(image->commentLine);
     fclose(inputFile);
     printf("ERROR: Bad Max Gray Value (%s)", input);
     return BAD_MAX_GRAY_VALUE;
   }
-  return 0;
+  return EXIT_NO_ERRORS;
 }
 
 int checkLittleData(int scanCount, int grayValue, File *image, FILE *inputFile, char *input){
@@ -114,4 +137,22 @@ if (image -> magic_number[1] == 50){
   return 0;
 }
 return 1;
+}
+
+int checkTemplate(char *output){
+char *ext = "<row>_<column>.pgm";
+char *extension = NULL;
+
+if(!(strchr(output, '_'))){
+printf("ERROR: Miscellaneous (%s)", output);
+return MISCELLANEOUS;
+}
+const char *dot = strchr(output, '_');
+if(!dot || dot == output) extension = "";
+extension = dot + 1;
+if(strcmp(extension, ext) != 0){
+printf("ERROR: Miscellaneous (%s)", output);
+return MISCELLANEOUS;
+}
+return EXIT_NO_ERRORS;
 }

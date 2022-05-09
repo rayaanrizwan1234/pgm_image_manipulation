@@ -23,10 +23,9 @@
 	}/* wrong arg count */
    //Pointer to Struct
      File *image = malloc(sizeof(File));
-
    int Returnpgmb2a = pgmb2a(argv[0],argv[1],argv[2],image);
    if (Returnpgmb2a == 0){
-     printf("CONVERTED\n");
+     printf("CONVERTED");
      return EXIT_NO_ERRORS;
    } else {
      return Returnpgmb2a;
@@ -44,7 +43,7 @@ int pgmb2a(char *convert, char *inputFile, char *outputFile, File *image){
     printf("ERROR: Bad Magic Number (%s)", inputFile);
     return BAD_MAGIC_NUMBER;
   }
-  int ReturnWrite = write(convert, image, outputFile);
+  int ReturnWrite = write("./pgmb2a", image, outputFile);
   if (ReturnWrite != 0){
     return ReturnWrite;
   }

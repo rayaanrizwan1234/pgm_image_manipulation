@@ -12,7 +12,7 @@ int checkFile(FILE *outputFile, File *image, char *input){
       free(image->imageData);
 
       /* print an error message        */
-      printf("Error: Output Failed (%s)", input);
+      printf("ERROR: Output Failed (%s)", input);
 
       /* return an error code          */
       return OUTPUT_FAILED;
