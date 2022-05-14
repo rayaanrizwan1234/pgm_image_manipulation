@@ -8,9 +8,7 @@
 #include "pgmWriteFunctions.h"
 #include <string.h>
 int write(char *convert, File *image, char *input) {
-	// if(fileExtension(image, input) != 0){
-	// 	return OUTPUT_FAILED;
-	// }
+	fileExtension(input);
 	// opens the file
 	FILE *outputFile = fopen(input, "w");
   unsigned char *nextGrayValue = NULL;
@@ -22,7 +20,7 @@ int write(char *convert, File *image, char *input) {
 			 fclose(outputFile);
 			 return 0;
 		// else statement to allow for use with different functions
-	} else if(strcmp(convert, "./pgmb2a") == 0 || strcmp(convert, "./pgmReduce") == 0){
+	} else if(strcmp(convert, "./pgmb2a") == 0){
 			writeAscii(outputFile, image, nextGrayValue, nImageBytes);
 			fclose(outputFile);
 			return 0;

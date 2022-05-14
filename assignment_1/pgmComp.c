@@ -25,10 +25,6 @@ int main(int argc, char **argv)
 		// Creates to two pointers for two images
 		File *file1 = malloc(sizeof(File));
     File *file2 = malloc(sizeof(File));
-		int ReturnCompare = Compare(argv[1], argv[2], file1, file2);
-		if (ReturnCompare == 0){
-			return EXIT_NO_ERRORS;
-		} else {
-			return ReturnCompare;
-		}
+		Compare(argv[1], argv[2], file1, file2);
+		return EXIT_NO_ERRORS;
 }

@@ -4,8 +4,8 @@
 #include "pgmDef.h"
 #include "pgmRead.h"
 #include "pgmValidation.h"
+#include "pgmValidationWrite.h"
 #include "pgmWrite.h"
-#include "pgmReduce.h"
 #include "pgmTile.h"
 #define max 50
 
@@ -28,31 +28,22 @@ int main(int argc, char **argv)
 		// Converting factor passed into an integer
 		int factor = atoi(argv[2]);
 		// Check if factor is negative
-		if(factor < 0){
-			printf("ERROR: Miscellaneous (Reduction factor is negative)");
+		if(factor <= 0){
+			printf("ERROR: Miscellaneous (Reduction factor not valid)");
 			return 100;
 		 }
-		// if(isdigit(factor) == 0){
-		// 	printf("ERROR: Miscellaneous (non-numeric scaling factor)");
-		// 	return 100;
-		// }
-		// Returning value passed out
-    int returnTile = pgmTile(argv[0], argv[1], factor, argv[3], image);
-		if(returnTile == 0){
-			printf("TILED");
-			return EXIT_NO_ERRORS;
-		}
-  return returnTile;
-	printf("%i\n", returnTile);
+
+    pgmTile(argv[0], argv[1], factor, argv[3], image);
+		printf("TILED");
+		return EXIT_NO_ERRORS;
+
 }
 
 int pgmTile(char *convert, char *input, int factor, char *output, File *image){
-
+	checkTemplate(output);
 	// Reading image and returning value if not equal to 0
-	int returnRead = readFile(input, image);
-	if(returnRead != 0){
-		return returnRead;
-	}
+	readFile(input, image);
+
 	// Create a 2d array holding image data
 	unsigned char imageData[image->height][image->width];
 	unsigned char *nextGrayValue = image->imageData;
@@ -95,10 +86,7 @@ int pgmTile(char *convert, char *input, int factor, char *output, File *image){
 		// outputTileTemplate will keep changing using snprintf
 		char outputTileTemplate[strlen(outputTile) + 19];
 		snprintf(outputTileTemplate, strlen(outputTile) + 19, "%s_%d_%d.pgm", outputTile, newrow, newcol);
-	 	int returnWrite = write("./pgmEcho", image, outputTileTemplate);
-	 	if(returnWrite != 0){
-	 		return returnWrite;
-	 	}
+	 	write("./pgmEcho", image, outputTileTemplate);
 		// Set imageData back to NULL for new tiled image
 		image->imageData = NULL;
 		free(image->imageData);
@@ -112,4 +100,6 @@ int pgmTile(char *convert, char *input, int factor, char *output, File *image){
 	}
 
 return EXIT_NO_ERRORS;
+
+
 }

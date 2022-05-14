@@ -35,14 +35,8 @@ int main(int argc, char **argv)
 		//Create Pointer to Struct File
 		File *file1 = malloc(sizeof(File));
 		// Call readFile and write
-		int ReturnRead = readFile(argv[1], file1);
-		if (ReturnRead != 0){
-			return ReturnRead;
-		}
-		int ReturnWrite = write(argv[0], file1, argv[2]);
-		if(ReturnWrite != 0){
-			return ReturnWrite;
-		}
+	  readFile(argv[1], file1);
+	 	write(argv[0], file1, argv[2]);
 		printf("ECHOED!\n");
 		return EXIT_NO_ERRORS;
 }

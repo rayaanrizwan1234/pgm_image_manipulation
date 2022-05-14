@@ -23,29 +23,20 @@
 	}/* wrong arg count */
    //Pointer to Struct
      File *image = malloc(sizeof(File));
-   int Returnpgmb2a = pgmb2a(argv[0],argv[1],argv[2],image);
-   if (Returnpgmb2a == 0){
+    pgmb2a(argv[0],argv[1],argv[2],image);
      printf("CONVERTED");
      return EXIT_NO_ERRORS;
-   } else {
-     return Returnpgmb2a;
-   }
  }
 
 int pgmb2a(char *convert, char *inputFile, char *outputFile, File *image){
 
   // Reads in the inputFile
-  int ReturnRead = readFile(inputFile, image);
-  if (ReturnRead != 0){
-    return ReturnRead;
-  }
+  readFile(inputFile, image);
+  // Checks if the file inputted is ASCII and if so it will give an error
   if (checkIfFileAscii(image, inputFile) == 0){
     printf("ERROR: Bad Magic Number (%s)", inputFile);
     return BAD_MAGIC_NUMBER;
   }
-  int ReturnWrite = write("./pgmb2a", image, outputFile);
-  if (ReturnWrite != 0){
-    return ReturnWrite;
-  }
+  write("./pgmb2a", image, outputFile);
   return EXIT_NO_ERRORS;
 }

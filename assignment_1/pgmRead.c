@@ -16,7 +16,7 @@ image->height = 0;
 image->maxGray = 255;
 image->imageData = NULL;
 
-// reading in the data
+// opening the file for reading
 FILE *inputFile = fopen(input, "r");
 // fails to read in file, returns error from pgmDef.h
 // Checks the file being inputted
@@ -25,7 +25,7 @@ checkInput(inputFile, input);
 // reads in Magic Number from file. Determines file type
 image->magic_number[0] = getc(inputFile);
 image->magic_number[1] = getc(inputFile);
-
+// Check if magic number if either ASCII or Binary
 checkMagicNumber(image, input);
 
 // scans for white spaces in the image logic
@@ -48,7 +48,7 @@ image->imageData = (unsigned char *) malloc(nImageBytes);
 checkImageMemory(image);
 
 if(image->magic_number[1] == 50){
-
+  // Read through image data using fscanf
   for(unsigned char *nextGrayValue = image->imageData; nextGrayValue < image->imageData + nImageBytes;nextGrayValue++){
     int grayValue = -1;
     int scanCount = fscanf(inputFile, "%u", &grayValue);
@@ -59,23 +59,11 @@ if(image->magic_number[1] == 50){
 
 } else {
   int grayValue = -1;
- scanCount = fscanf(inputFile, "%u", &grayValue);
+  scanCount = fscanf(inputFile, "%u", &grayValue);
+  // Reads in data into imageData
   fread(image->imageData, sizeof(unsigned char), nImageBytes, inputFile);
-  // unsigned char *nextGrayValue = image->imageData;
-  // for(int x = 0; x < image->height; x++){
-  //   for(int y = 0; y < image->width; y++){
-  //     if(*nextGrayValue < 0 || *nextGrayValue > 255){
-  //       free(image->commentLine);
-  //       free(image->imageData);
-  //       fclose(inputFile);
-  //       printf("ERROR: Bad Data (%s)", input);
-  //       return BAD_DATA;
-  //     }
-  //     nextGrayValue++;
-  //   }
-
 }
-// pointer for efficient reading of the file
+// Check if image has too much data
 checkTooMuchData(image, inputFile, input);
 // close the file, no longer needed
 fclose(inputFile);

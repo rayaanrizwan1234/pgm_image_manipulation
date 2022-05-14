@@ -25,28 +25,20 @@ int main(int argc, char **argv)
 	}/* wrong arg count */
 		// Pointer to struct
 		File *image = malloc(sizeof(File));
-		int Returnpgma2b = pgma2b(argv[1], image, argv[2]);
-		if (Returnpgma2b == 0){
-			printf("CONVERTED");
-			return EXIT_NO_ERRORS;
-		} else {
-			return Returnpgma2b;
-		}
+		pgma2b(argv[1], image, argv[2]);
+		printf("CONVERTED");
+		return EXIT_NO_ERRORS;
+
 } /* main() */
 
 int pgma2b(char *input,File *image, char *outputFile){
 		// Reads in the inputFile
-    int ReturnRead = readFile(input, image);
-		if (ReturnRead != 0){
-			return ReturnRead;
-		}
+		readFile(input, image);
 		if (checkIfFileBinary(image, input) == 0){
 			printf("ERROR: Bad Magic Number (%s)", input);
 			return BAD_MAGIC_NUMBER;
 		}
-		int ReturnWrite = write("./pgma2b", image, outputFile);
-		if (ReturnWrite != 0){
-			return ReturnWrite;
-		}
+		// Writes in binary
+		write("./pgma2b", image, outputFile);
     return EXIT_NO_ERRORS;
 }

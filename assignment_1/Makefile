@@ -1,8 +1,8 @@
 C = gcc
 CFLAGS = -g -std=c99 -fmax-errors=1
 MODULES = pgmRead.o pgmWrite.o pgmValidationWrite.o pgmValidation.o pgmCompare.o pgmWriteFunctions.o 
-MAINS = pgmEcho.o pgmComp.o pgma2b.o pgmb2a.o pgmReduce.o pgmTile.o
-TARGETS = pgmEcho pgmComp pgma2b pgmb2a pgmReduce pgmTile
+MAINS = pgmEcho.o pgmComp.o pgma2b.o pgmb2a.o pgmReduce.o pgmTile.o pgmAssemble.o
+TARGETS = pgmEcho pgmComp pgma2b pgmb2a pgmReduce pgmTile pgmAssemble
 
 all:    ${TARGETS}
 
@@ -22,4 +22,6 @@ pgmReduce: pgmReduce.o ${MODULES}
 	${CC} ${CCFLAGS} -o pgmReduce pgmReduce.o ${MODULES}
 pgmTile: pgmTile.o ${MODULES}
 	${CC} ${CCFLAGS} -o pgmTile pgmTile.o ${MODULES}
+pgmAssemble: pgmAssemble.o ${MODULES}
+	${CC} ${CCFLAGS} -o pgmAssemble pgmAssemble.o ${MODULES}
 
