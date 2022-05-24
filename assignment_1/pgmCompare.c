@@ -30,15 +30,15 @@ int Compare(char *input1, char *input2, File *image1, File *image2){
       for(unsigned char *nextGrayValue1 = image1->imageData; nextGrayValue1 < image1->imageData + nImageBytes;nextGrayValue1++){
         // Read throught each image bit times by the maxGray and compare them to see if equal
         if((*nextGrayValue1 * image1->maxGray) != (*nextGrayValue2 * image2->maxGray)){
-          printf("DIFFERENT");
+          printf("DIFFERENT\n");
           return EXIT_NO_ERRORS;
         }
         nextGrayValue2++;
       }
-      printf("IDENTICAL");
+      printf("IDENTICAL\n");
      return EXIT_NO_ERRORS;
     }
-    printf("DIFFERENT");
+    printf("DIFFERENT\n");
     return EXIT_NO_ERRORS;
 
 }

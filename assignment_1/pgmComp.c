@@ -15,11 +15,11 @@ int main(int argc, char **argv)
 	if (argc == 1)
 		{ /* If no parameters were given */
 		/* print an error message        */
-    printf("Usage: ./pgmComp inputImage.pgm inputImage.pgm");
+    printf("Usage: ./pgmComp inputImage.pgm inputImage.pgm\n");
 		/* and return an error code      */
 		return 0;
 	} else if (argc != 3){
-		printf("ERROR: Bad Argument Count");
+		printf("ERROR: Bad Argument Count\n");
 		return EXIT_WRONG_ARG_COUNT;
 	}/* wrong arg count */
 		// Creates to two pointers for two images

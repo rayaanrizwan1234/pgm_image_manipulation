@@ -9,5 +9,5 @@ int checkTooMuchData(File *image, FILE *inputFile, char *input);
 int checkImageMemory(File *image);
 int checkIfFileBinary(File *image, char *input);
 int checkIfFileAscii(File *image, char *input);
-int checkTemplate(char *output);
+int checkTemplate(char *output, int outputlen);
 int checkMaxGray(File *image, FILE *inputFile, char *input);

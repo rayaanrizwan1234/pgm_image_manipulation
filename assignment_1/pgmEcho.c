@@ -37,6 +37,6 @@ int main(int argc, char **argv)
 		// Call readFile and write
 	  readFile(argv[1], file1);
 	 	write(argv[0], file1, argv[2]);
-		printf("ECHOED!\n");
+		printf("ECHOED\n");
 		return EXIT_NO_ERRORS;
 }

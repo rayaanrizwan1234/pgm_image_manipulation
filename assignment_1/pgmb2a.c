@@ -14,17 +14,17 @@
   if (argc == 1)
 		{ /* If no parameterswere given */
 		/* print an error message        */
-    printf("Usage: ./pgmb2a inputImage.pgm outputImage.pgm");
+    printf("Usage: ./pgmb2a inputImage.pgm outputImage.pgm\n");
 		/* and return an error code      */
 		return 0;
 	} else if (argc != 3){
-		printf("ERROR: Bad Argument Count");
+		printf("ERROR: Bad Argument Count\n");
 		return EXIT_WRONG_ARG_COUNT;
 	}/* wrong arg count */
    //Pointer to Struct
      File *image = malloc(sizeof(File));
     pgmb2a(argv[0],argv[1],argv[2],image);
-     printf("CONVERTED");
+     printf("CONVERTED\n");
      return EXIT_NO_ERRORS;
  }
 
@@ -34,8 +34,8 @@ int pgmb2a(char *convert, char *inputFile, char *outputFile, File *image){
   readFile(inputFile, image);
   // Checks if the file inputted is ASCII and if so it will give an error
   if (checkIfFileAscii(image, inputFile) == 0){
-    printf("ERROR: Bad Magic Number (%s)", inputFile);
-    return BAD_MAGIC_NUMBER;
+    printf("ERROR: Bad Magic Number (%s)\n", inputFile);
+    exit(BAD_MAGIC_NUMBER);
   }
   write("./pgmb2a", image, outputFile);
   return EXIT_NO_ERRORS;

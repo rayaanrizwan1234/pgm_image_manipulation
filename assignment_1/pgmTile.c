@@ -15,12 +15,12 @@ int main(int argc, char **argv)
 	 if (argc == 1)
 	 	{ /* no arguments passed */
 	 	/* print an error message        */
-     printf("Usage: ./pgmTile inputImage.pgm tiling_factor outputImage_<row>_<column>.pgm");
+     printf("Usage: ./pgmTile inputImage.pgm tiling_factor outputImage_<row>_<column>.pgm\n");
 	 	/* and return an error code      */
 	 	return 0;
 		// Wrong arg count
 	} else if (argc != 4){
-		printf("ERROR: Bad Argument Count");
+		printf("ERROR: Bad Argument Count\n");
 		return EXIT_WRONG_ARG_COUNT;
 	}
 	//intialize image pointer
@@ -29,18 +29,17 @@ int main(int argc, char **argv)
 		int factor = atoi(argv[2]);
 		// Check if factor is negative
 		if(factor <= 0){
-			printf("ERROR: Miscellaneous (Reduction factor not valid)");
+			printf("ERROR: Miscellaneous (Reduction factor not valid)\n");
 			return 100;
 		 }
 
     pgmTile(argv[0], argv[1], factor, argv[3], image);
-		printf("TILED");
+		printf("TILED\n");
 		return EXIT_NO_ERRORS;
 
 }
 
 int pgmTile(char *convert, char *input, int factor, char *output, File *image){
-	checkTemplate(output);
 	// Reading image and returning value if not equal to 0
 	readFile(input, image);
 
@@ -54,10 +53,11 @@ int pgmTile(char *convert, char *input, int factor, char *output, File *image){
 		}
 	}
 	 // Subract 19 to only get the filename without template
-		int outputLen = strlen(output) - 19;
-		char outputTile[outputLen + 1];
-	  strncpy(outputTile, output, outputLen);
-	  outputTile[outputLen] = '\0';
+		int length = strlen(output) - 19;
+		checkTemplate(output, length);
+		char outputTile[length + 1];
+	  strncpy(outputTile, output, length);
+	  outputTile[length] = '\0';
 	// Store original height in Variables
 	int originalheight = image->height;
 	int originalwidth = image->width;
@@ -90,7 +90,6 @@ int pgmTile(char *convert, char *input, int factor, char *output, File *image){
 		// Set imageData back to NULL for new tiled image
 		image->imageData = NULL;
 		free(image->imageData);
-
 		col = col + numCols;
 		if (col == originalwidth){
 			row = row + numRows;
@@ -98,8 +97,5 @@ int pgmTile(char *convert, char *input, int factor, char *output, File *image){
 		}
 	 }
 	}
-
 return EXIT_NO_ERRORS;
-
-
 }

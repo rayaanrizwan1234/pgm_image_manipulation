@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 		// Pointer to struct
 		File *image = malloc(sizeof(File));
 		pgma2b(argv[1], image, argv[2]);
-		printf("CONVERTED");
+		printf("CONVERTED\n");
 		return EXIT_NO_ERRORS;
 
 } /* main() */
@@ -35,8 +35,8 @@ int pgma2b(char *input,File *image, char *outputFile){
 		// Reads in the inputFile
 		readFile(input, image);
 		if (checkIfFileBinary(image, input) == 0){
-			printf("ERROR: Bad Magic Number (%s)", input);
-			return BAD_MAGIC_NUMBER;
+			printf("ERROR: Bad Magic Number (%s)\n", input);
+			exit(BAD_MAGIC_NUMBER);
 		}
 		// Writes in binary
 		write("./pgma2b", image, outputFile);

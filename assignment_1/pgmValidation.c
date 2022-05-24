@@ -6,10 +6,8 @@
 
 // Check if inputfile exists
 int checkInput(FILE *inputfile, char *input){
-  char *extension = NULL;
-  char *ext = "pgm";
   if(inputfile == NULL){
-    printf("ERROR: Bad File Name (%s)", input);
+    printf("ERROR: Bad File Name (%s)\n", input);
     exit(BAD_FILE_NAME);
   }
   return 0;
@@ -17,7 +15,7 @@ int checkInput(FILE *inputfile, char *input){
 // Check if magic number is either ascii or binarys magic number
 int checkMagicNumber(File *image, char *input){
   if( image->magic_number[0] != 'P' || (image->magic_number[1] != '2' && image->magic_number[1] != '5')){
-    printf("ERROR: Bad Magic Number (%s)", input);
+    printf("ERROR: Bad Magic Number (%s)\n", input);
     exit(BAD_MAGIC_NUMBER);
   }
   return 0;
@@ -31,11 +29,11 @@ int checkComment(char nextChar, File *image, FILE *inputFile, char *input){
           if(commentString == NULL){
               free(image->commentLine);
               fclose(inputFile);
-              printf("ERROR: Bad Comment Line (%s)", input);
+              printf("ERROR: Bad Comment Line (%s)\n", input);
               exit(BAD_COMMENT_LINE);
               }
           if(strlen(commentString) >= 128){
-            printf("ERROR: Bad Comment Line (%s)", input);
+            printf("ERROR: Bad Comment Line (%s)\n", input);
             exit(BAD_COMMENT_LINE);
             }
       }
@@ -66,7 +64,7 @@ int checkMaxGray(File *image, FILE *inputFile, char *input){
   if (image->maxGray != 255 ){
     free(image->commentLine);
     fclose(inputFile);
-    printf("ERROR: Bad Max Gray Value (%s)", input);
+    printf("ERROR: Bad Max Gray Value (%s)\n", input);
     exit(BAD_MAX_GRAY_VALUE);
   }
   return EXIT_NO_ERRORS;
@@ -78,7 +76,7 @@ int checkLittleData(int scanCount, int grayValue, File *image, FILE *inputFile, 
       free(image->commentLine);
       free(image->imageData);
       fclose(inputFile);
-      printf("ERROR: Bad Data (%s)", input);
+      printf("ERROR: Bad Data (%s)\n", input);
       exit(BAD_DATA);
   }
   return 0;
@@ -91,7 +89,7 @@ int checkTooMuchData(File *image, FILE *inputFile, char *input){
     free(image->commentLine);
     free(image->imageData);
     fclose(inputFile);
-    printf("ERROR: Bad Data (%s)", input);
+    printf("ERROR: Bad Data (%s)\n", input);
     exit(BAD_DATA);
   }
   return 0;
@@ -99,7 +97,7 @@ int checkTooMuchData(File *image, FILE *inputFile, char *input){
 // Checks if malloc failed
 int checkImageMemory(File *image){
   if (image->imageData == NULL){
-    printf("ERROR: Image Malloc Failed");
+    printf("ERROR: Image Malloc Failed\n");
     exit(IMAGE_MEMORY_FAIL);
   }
   return 0;
@@ -119,10 +117,14 @@ if (image -> magic_number[1] == 50){
 return 1;
 }
 
-int checkTemplate(char *output){
-if(!(strchr(output, '_<row_<column>.pgm'))){
-  printf("ERROR: Miscellaneous (Bad Template)", output);
-  exit(MISCELLANEOUS);
-}
-return EXIT_NO_ERRORS;
+int checkTemplate(char *output, int outputLen){
+  char template[20];
+  memcpy(template, &output[outputLen], 19);
+  template[19] = '\0';
+  if(strcmp(template, "_<row>_<column>.pgm")){
+     printf("ERROR: Output Failed (%s)\n", template);
+    printf("ERROR: Miscellaneous\n");
+    exit(100);
+  }
+  return EXIT_NO_ERRORS;
 }
