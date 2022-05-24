@@ -18,11 +18,10 @@ image->imageData = NULL;
 
 // opening the file for reading
 FILE *inputFile = fopen(input, "r");
-// fails to read in file, returns error from pgmDef.h
-// Checks the file being inputted
+// Checks if the file is valid
 checkInput(inputFile, input);
 
-// reads in Magic Number from file. Determines file type
+// reads in Magic Number from file
 image->magic_number[0] = getc(inputFile);
 image->magic_number[1] = getc(inputFile);
 // Check if magic number if either ASCII or Binary
@@ -30,7 +29,7 @@ checkMagicNumber(image, input);
 
 // scans for white spaces in the image logic
 int scanCount = fscanf(inputFile, " ");
-// scans for the white spaces if present in the code
+// scans for comments 
 char nextChar = fgetc(inputFile);
 // Checks for comment lines in the file
 checkComment( nextChar, image, inputFile, input);
@@ -56,7 +55,6 @@ if(image->magic_number[1] == 50){
     checkLittleData(scanCount, grayValue, image, inputFile, input);
     *nextGrayValue = (unsigned char) grayValue;
   }
-
 } else {
   int grayValue = -1;
   scanCount = fscanf(inputFile, "%u", &grayValue);

@@ -32,17 +32,14 @@ int main(int argc, char **argv)
 			printf("ERROR: Miscellaneous (Reduction factor not valid)\n");
 			return 100;
 		 }
-
     pgmTile(argv[0], argv[1], factor, argv[3], image);
 		printf("TILED\n");
 		return EXIT_NO_ERRORS;
-
 }
 
 int pgmTile(char *convert, char *input, int factor, char *output, File *image){
 	// Reading image and returning value if not equal to 0
 	readFile(input, image);
-
 	// Create a 2d array holding image data
 	unsigned char imageData[image->height][image->width];
 	unsigned char *nextGrayValue = image->imageData;

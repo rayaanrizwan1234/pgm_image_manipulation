@@ -29,7 +29,6 @@ int main(int argc, char **argv)
 			printf("ERROR: Miscellaneous (Reduction factor is not valid)\n");
 			return 100;
 		 }
-
     	pgmReduce(argv[0], argv[1], factor, argv[3], image);
 			printf("REDUCED\n");
 			return EXIT_NO_ERRORS;
@@ -59,9 +58,7 @@ int pgmReduce(char *convert, char *input, int factor, char *output, File *image)
 // Free old imageData
 free(image->imageData);
 image->imageData = (unsigned char *) malloc(nImageBytes);
-
 checkImageMemory(image);
-
 nImageBytes = height * width * sizeof(unsigned char);
 //Initialize pointer to new imageData
 unsigned char *nextGrayValue = image->imageData;
@@ -70,13 +67,12 @@ for(int row = 0; row < image->height; row++) {
 		if(row % factor == 0 && col % factor == 0) {
 			*nextGrayValue = imageData[row][col];
 			nextGrayValue++;
+			}
 		}
 	}
-	}
+// Set image width and height to the reduce height and width
 image->width = width;
 image->height = height;
-
 write("./pgmEcho", image, output);
-
 return EXIT_NO_ERRORS;
 }

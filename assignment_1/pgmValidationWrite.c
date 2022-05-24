@@ -20,7 +20,6 @@ int checkFile(FILE *outputFile, File *image, char *input){
       return 0;
 }
 
-// Checks if filename ends with .pgm
 int fileExtension(char *input){
 if(!(strchr(input, '.pgm'))){
   printf("ERROR: Output Failed (%s)", input);
@@ -28,20 +27,4 @@ if(!(strchr(input, '.pgm'))){
   exit(OUTPUT_FAILED);
 }
 return EXIT_NO_ERRORS;
-}
-
-int checknBytesWritten(size_t nBytesWritten, File *file1){
-  if (nBytesWritten < 0)
-      { /* dimensional write failed    */
-      /* free memory                   */
-      free(file1->commentLine);
-      free(file1->imageData);
-
-      /* print an error message        */
-      printf("Error: Failed to read bytes");
-
-      /* return an error code          */
-      return NBYTESWRITTENFAIL;
-      } /* dimensional write failed    */
-      return 0;
 }
